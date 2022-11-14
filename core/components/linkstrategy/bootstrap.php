@@ -13,6 +13,6 @@ $modx->services->add('linkstrategy', function($c) use ($modx) {
 });
 
 // Load packages model, uncomment if you have DB tables
-//$modx->addPackage('LinkStrategy\Model', $namespace['path'] . 'src/', null, 'LinkStrategy\\');
+$modx->addPackage('LinkStrategy\Model', $namespace['path'] . 'src/', null, 'LinkStrategy\\');
 
 // More about this file: https://docs.modx.com/3.x/en/extending-modx/namespaces#bootstrapping-services

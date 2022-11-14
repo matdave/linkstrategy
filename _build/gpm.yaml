@@ -8,3 +8,13 @@ menus:
     -
         text: linkstrategy.menu
         action: manage
+plugins:
+    -
+        name: LinkStrategy
+        events:
+            - OnDocFormSave
+            - OnEmptyTrash
+database:
+    tables:
+        - LinkStrategy\Model\Links
+        - LinkStrategy\Model\ResourceLinks

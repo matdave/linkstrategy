@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model package="LinkStrategy\Model\" baseClass="xPDO\Om\xPDOSimpleObject" platform="mysql" defaultEngine="InnoDB" version="3.0">
+    <object class="Links" table="ls_links">
+        <field key="context_key" dbtype="varchar" precision="100" phptype="string" null="false" default="" index="index" />
+        <field key="internal" dbtype="tinyint" precision="1" phptype="boolean" null="false" default="0" index="index" />
+        <field key="url" dbtype="text" phptype="string" null="true" index="index" />
+        <field key="uri" dbtype="text" phptype="string" null="true" index="index" />
+        <field key="resource" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" index="index" />
 
+        <index alias="context_key" name="context_key" primary="false" unique="false" type="BTREE">
+            <column key="context_key" length="" collation="A" null="false" />
+        </index>
+        <index alias="internal" name="internal" primary="false" unique="false" type="BTREE">
+            <column key="internal" length="" collation="A" null="false" />
+        </index>
+        <index alias="resource" name="resource" primary="false" unique="false" type="BTREE">
+            <column key="resource" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Context" class="MODX\Revolution\modContext" local="context_key" foreign="key" cardinality="one" owner="foreign" />
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource" foreign="id" cardinality="one" owner="foreign" />
+        <composite alias="Links" class="LinkStrategy\Model\ResourceLinks" local="id" foreign="link" cardinality="many" owner="local" />
+    </object>
+    <object class="ResourceLinks" table="ls_resource_links" extends="xPDO\Om\xPDOObject">
+        <field key="link" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" />
+        <field key="resource" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" />
+
+        <index alias="PRIMARY" name="PRIMARY" primary="true" unique="true" type="BTREE">
+            <column key="link" length="" collation="A" null="false" />
+            <column key="resource" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Link" class="LinkStrategy\Model\Links" local="link" foreign="key" cardinality="one" owner="foreign" />
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource" foreign="id" cardinality="one" owner="foreign" />
+    </object>
 </model>
