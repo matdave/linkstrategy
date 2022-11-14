@@ -1,0 +1,10 @@
+name: LinkStrategy
+version: 0.0.1
+lowCaseName: linkstrategy
+namespace: LinkStrategy
+description: 'Manage Your Site''s Link Strategy'
+author: matdave
+menus:
+    -
+        text: linkstrategy.menu
+        action: manage
