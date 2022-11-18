@@ -8,6 +8,7 @@ $xpdo_meta_map = array (
         'xPDO\\Om\\xPDOSimpleObject' => 
         array (
             0 => 'LinkStrategy\\Model\\Links',
+            1 => 'LinkStrategy\\Model\\ResourceLinksText',
         ),
         'xPDO\\Om\\xPDOObject' => 
         array (

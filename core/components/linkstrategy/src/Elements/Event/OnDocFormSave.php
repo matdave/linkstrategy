@@ -5,6 +5,7 @@ namespace LinkStrategy\Elements\Event;
 use LinkStrategy\Traits\Resource;
 use MODX\Revolution\modResource;
 use LinkStrategy\Model\ResourceLinks;
+use LinkStrategy\Model\ResourceLinksText;
 
 class OnDocFormSave extends Event
 {

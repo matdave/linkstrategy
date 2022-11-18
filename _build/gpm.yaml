@@ -18,3 +18,4 @@ database:
     tables:
         - LinkStrategy\Model\Links
         - LinkStrategy\Model\ResourceLinks
+        - LinkStrategy\Model\ResourceLinksText

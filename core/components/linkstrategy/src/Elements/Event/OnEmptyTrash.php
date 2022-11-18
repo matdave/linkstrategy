@@ -15,5 +15,8 @@ class OnEmptyTrash extends Event
         $this->modx->removeCollection(ResourceLinks::class, [
             'resource:IN' => $ids
         ]);
+        $this->modx->removeCollection(ResourceLinksText::class, [
+            'resource:IN' => $ids
+        ]);
     }
 }

@@ -9,7 +9,7 @@ linkstrategy.panel.Manage = function (config) {
                 html: '<h2>' + _('linkstrategy.manage.page_title') + '</h2>',
                 border: false,
                 cls: 'modx-page-header'
-            },
+        },
             {
                 xtype: 'modx-tabs',
                 defaults: {
@@ -20,18 +20,38 @@ linkstrategy.panel.Manage = function (config) {
                 activeItem: 0,
                 hideMode: 'offsets',
                 items: [
+                {
+                    title: _('linkstrategy.manage.links'),
+                    layout: 'form',
+                    items: [
                     {
-                        title: _('linkstrategy.manage.page_title'),
-                        layout: 'form',
-                        items: [
-                            {
-                                cls: 'main-wrapper',
-                               html: 'Greetings from John. Thank you for using GPM.'
-                            }
-                        ]
+                        html: '<p>' + _('linkstrategy.manage.links_desc') + '</p>',
+                        border: false,
+                        cls: 'panel-desc'
+                    },
+                    {
+                        cls: 'main-wrapper',
+                        xtype: 'linkstrategy-grid-links',
                     }
+                    ]
+                },
+                {
+                    title: _('linkstrategy.manage.resourcelinkstext'),
+                    layout: 'form',
+                    items: [
+                    {
+                        html: '<p>' + _('linkstrategy.manage.resourcelinkstext_desc') + '</p>',
+                        border: false,
+                        cls: 'panel-desc'
+                    },
+                    {
+                        cls: 'main-wrapper',
+                        xtype: 'linkstrategy-grid-resourcelinkstext',
+                    }
+                    ]
+                }
                 ]
-            }
+        }
         ]
     });
     linkstrategy.panel.Manage.superclass.constructor.call(this, config);

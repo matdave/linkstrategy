@@ -119,9 +119,17 @@ class Links extends \LinkStrategy\Model\Links
         ),
         'composites' => 
         array (
-            'Links' => 
+            'ResourceLinks' => 
             array (
                 'class' => 'LinkStrategy\\Model\\ResourceLinks',
+                'local' => 'id',
+                'foreign' => 'link',
+                'cardinality' => 'many',
+                'owner' => 'local',
+            ),
+            'ResourceLinksText' => 
+            array (
+                'class' => 'LinkStrategy\\Model\\ResourceLinksText',
                 'local' => 'id',
                 'foreign' => 'link',
                 'cardinality' => 'many',

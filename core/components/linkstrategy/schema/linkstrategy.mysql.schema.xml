@@ -19,7 +19,8 @@
 
         <aggregate alias="Context" class="MODX\Revolution\modContext" local="context_key" foreign="key" cardinality="one" owner="foreign" />
         <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource" foreign="id" cardinality="one" owner="foreign" />
-        <composite alias="Links" class="LinkStrategy\Model\ResourceLinks" local="id" foreign="link" cardinality="many" owner="local" />
+        <composite alias="ResourceLinks" class="LinkStrategy\Model\ResourceLinks" local="id" foreign="link" cardinality="many" owner="local" />
+        <composite alias="ResourceLinksText" class="LinkStrategy\Model\ResourceLinksText" local="id" foreign="link" cardinality="many" owner="local" />
     </object>
     <object class="ResourceLinks" table="ls_resource_links" extends="xPDO\Om\xPDOObject">
         <field key="link" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" />
@@ -29,8 +30,31 @@
             <column key="link" length="" collation="A" null="false" />
             <column key="resource" length="" collation="A" null="false" />
         </index>
+        <index alias="link" name="link" primary="false" unique="false" type="BTREE">
+            <column key="link" length="" collation="A" null="false" />
+        </index>
+        <index alias="resource" name="resource" primary="false" unique="false" type="BTREE">
+            <column key="resource" length="" collation="A" null="false" />
+        </index>
 
-        <aggregate alias="Link" class="LinkStrategy\Model\Links" local="link" foreign="key" cardinality="one" owner="foreign" />
+        <aggregate alias="Link" class="LinkStrategy\Model\Links" local="link" foreign="id" cardinality="one" owner="foreign" />
+        <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource" foreign="id" cardinality="one" owner="foreign" />
+    </object>
+    <object class="ResourceLinksText" table="ls_resource_links_text">
+        <field key="link" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" />
+        <field key="resource" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" />
+        <field key="text" dbtype="varchar" precision="255" phptype="string" null="false" />
+        <index alias="link" name="link" primary="false" unique="false" type="BTREE">
+            <column key="link" length="" collation="A" null="false" />
+        </index>
+        <index alias="resource" name="resource" primary="false" unique="false" type="BTREE">
+            <column key="resource" length="" collation="A" null="false" />
+        </index>
+        <index alias="text" name="text" primary="false" unique="false" type="BTREE">
+            <column key="text" length="" collation="A" null="false" />
+        </index>
+
+        <aggregate alias="Link" class="LinkStrategy\Model\Links" local="link" foreign="id" cardinality="one" owner="foreign" />
         <aggregate alias="Resource" class="MODX\Revolution\modResource" local="resource" foreign="id" cardinality="one" owner="foreign" />
     </object>
 </model>

@@ -3,14 +3,13 @@ namespace LinkStrategy\Model\mysql;
 
 use xPDO\xPDO;
 
-class ResourceLinks extends \LinkStrategy\Model\ResourceLinks
+class ResourceLinksText extends \LinkStrategy\Model\ResourceLinksText
 {
 
     public static $metaMap = array (
         'package' => 'LinkStrategy\\Model\\',
         'version' => '3.0',
-        'table' => 'ls_resource_links',
-        'extends' => 'xPDO\\Om\\xPDOObject',
+        'table' => 'ls_resource_links_text',
         'tableMeta' => 
         array (
             'engine' => 'InnoDB',
@@ -19,6 +18,7 @@ class ResourceLinks extends \LinkStrategy\Model\ResourceLinks
         array (
             'link' => NULL,
             'resource' => NULL,
+            'text' => NULL,
         ),
         'fieldMeta' => 
         array (
@@ -38,31 +38,16 @@ class ResourceLinks extends \LinkStrategy\Model\ResourceLinks
                 'phptype' => 'integer',
                 'null' => false,
             ),
+            'text' => 
+            array (
+                'dbtype' => 'varchar',
+                'precision' => '255',
+                'phptype' => 'string',
+                'null' => false,
+            ),
         ),
         'indexes' => 
         array (
-            'PRIMARY' => 
-            array (
-                'alias' => 'PRIMARY',
-                'primary' => true,
-                'unique' => true,
-                'type' => 'BTREE',
-                'columns' => 
-                array (
-                    'link' => 
-                    array (
-                        'length' => '',
-                        'collation' => 'A',
-                        'null' => false,
-                    ),
-                    'resource' => 
-                    array (
-                        'length' => '',
-                        'collation' => 'A',
-                        'null' => false,
-                    ),
-                ),
-            ),
             'link' => 
             array (
                 'alias' => 'link',
@@ -88,6 +73,22 @@ class ResourceLinks extends \LinkStrategy\Model\ResourceLinks
                 'columns' => 
                 array (
                     'resource' => 
+                    array (
+                        'length' => '',
+                        'collation' => 'A',
+                        'null' => false,
+                    ),
+                ),
+            ),
+            'text' => 
+            array (
+                'alias' => 'text',
+                'primary' => false,
+                'unique' => false,
+                'type' => 'BTREE',
+                'columns' => 
+                array (
+                    'text' => 
                     array (
                         'length' => '',
                         'collation' => 'A',
