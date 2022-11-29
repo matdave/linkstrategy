@@ -3,7 +3,7 @@ linkstrategy.window.LinksExplore = function (config) {
     Ext.applyIf(config, {
         title: _("linkstrategy.links.explore", { url: config.record.url }),
         closeAction: "close",
-        width: 600,
+        width: 800,
         autoHeight: true,
         fields: [
         {

@@ -14,7 +14,7 @@ linkstrategy.grid.LinksExplore = function (config) {
         remoteSort: true,
         emptyText: _("linkstrategy.global.no_records"),
         showActionsColumn: false,
-        grouping: true,
+        grouping: false,
         groupBy: "text",
         sortBy: "text",
         singleText: _("linkstrategy.global.resource"),
@@ -36,14 +36,13 @@ linkstrategy.grid.LinksExplore = function (config) {
             header: _("linkstrategy.resourcelinkstext.text"),
             dataIndex: "text",
             sortable: true,
-            width: 80,
-            hidden: true,
+            width: 60,
         },
         {
             header: _("linkstrategy.global.resource"),
             dataIndex: "resource",
-            sortable: false,
-            width: 40,
+            sortable: true,
+            width: 60,
             renderer: function (value, metaData, record) {
                 if (value > 0) {
                     var linktitle = record.data.resource_menutitle ? record.data.resource_menutitle : record.data.resource_pagetitle;
@@ -65,7 +64,15 @@ Ext.extend(linkstrategy.grid.LinksExplore, MODx.grid.Grid, {
             text: _("linkstrategy.global.export"),
             handler: this.exportFilters,
         },
-        "->",
+        "->", {
+            xtype: "linkstrategy-combo-text",
+            link: config.record.id,
+            filterName: "text",
+            listeners: {
+                change: this.filterSearch,
+                scope: this,
+            }
+        },
         {
             xtype: "textfield",
             blankText: _("linkstrategy.global.search"),
@@ -118,6 +125,7 @@ Ext.extend(linkstrategy.grid.LinksExplore, MODx.grid.Grid, {
         var s = this.getStore();
         s.baseParams = {
             action: s.baseParams.action,
+            link: this.config.record.id,
         };
         this.getBottomToolbar().changePage(1);
     },

@@ -21,5 +21,6 @@ class Explore extends GetListProcessor
     public $dynamicFilter = [
         'query'=>['Link.url:LIKE', 'OR:Link.uri:LIKE'],
         'text' => 'ResourceLinksText.text',
+        'link' => 'ResourceLinksText.link',
     ];
 }

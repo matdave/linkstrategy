@@ -15,12 +15,14 @@ class LinkStrategyManageManagerController extends LinkStrategyBaseManagerControl
 
     public function loadCustomCssJs(): void
     {
+        $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/utils/combos.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/resourcelinkstext/explore.grid.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/resourcelinkstext/explore.window.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/resourcelinkstext.grid.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/links/explore.grid.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/links/explore.window.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/links.grid.js');
+        $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/orphans.grid.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/widgets/manage.panel.js');
         $this->addLastJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/sections/manage.js');
 

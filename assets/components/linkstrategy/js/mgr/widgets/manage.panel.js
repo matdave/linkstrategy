@@ -1,14 +1,21 @@
 linkstrategy.panel.Manage = function (config) {
     config = config || {};
-    Ext.apply(config, {
+    Ext.applyIf(config, {
+        id: "linkstrategy-panel-manage",
         border: false,
-        baseCls: 'modx-formpanel',
-        cls: 'container',
+        cls: "container form-with-labels",
+        url: MODx.config.connector_url,
+        bypassValidCheck: true,
+        saveMsg: _("linkstrategy.generate.ing"),
+        baseParams: {
+            action: "LinkStrategy\\Processors\\Utils\\Generate",
+        },
+        useLoadingMask: true,
         items: [
             {
                 html: '<h2>' + _('linkstrategy.manage.page_title') + '</h2>',
                 border: false,
-                cls: 'modx-page-header'
+                xtype: "modx-header",
         },
             {
                 xtype: 'modx-tabs',
@@ -18,7 +25,9 @@ linkstrategy.panel.Manage = function (config) {
                 },
                 border: true,
                 activeItem: 0,
-                hideMode: 'offsets',
+                collapsible: false,
+                animCollapse: false,
+                itemId: "tabs",
                 items: [
                 {
                     title: _('linkstrategy.manage.links'),
@@ -49,12 +58,28 @@ linkstrategy.panel.Manage = function (config) {
                         xtype: 'linkstrategy-grid-resourcelinkstext',
                     }
                     ]
+                },
+                {
+                    title: _('linkstrategy.manage.orphans'),
+                    layout: 'form',
+                    items: [
+                    {
+                        html: '<p>' + _('linkstrategy.manage.orphans_desc') + '</p>',
+                        border: false,
+                        cls: 'panel-desc'
+                    },
+                    {
+                        cls: 'main-wrapper',
+                        xtype: 'linkstrategy-grid-orphans',
+                    }
+                    ]
                 }
                 ]
         }
-        ]
+        ],
     });
     linkstrategy.panel.Manage.superclass.constructor.call(this, config);
 };
-Ext.extend(linkstrategy.panel.Manage, MODx.Panel);
-Ext.reg('linkstrategy-panel-manage', linkstrategy.panel.Manage);
+Ext.extend(linkstrategy.panel.Manage, MODx.FormPanel);
+Ext.reg('linkstrategy-panel-manage', linkstrategy.panel.Manage, {
+});

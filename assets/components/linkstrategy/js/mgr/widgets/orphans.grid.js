@@ -1,18 +1,18 @@
-linkstrategy.grid.Links = function (config) {
+linkstrategy.grid.Orphans = function (config) {
     config = config || {};
 
     Ext.applyIf(config, {
         url: MODx.config.connector_url,
         baseParams: {
-            action: "LinkStrategy\\Processors\\Links\\GetList",
-            sort: "resourcelinks_count",
-            resource: config.resource || null,
+            action: "LinkStrategy\\Processors\\Orphans\\GetList",
+            sort: "id",
         },
         autosave: false,
         preventSaveRefresh: true,
-        fields: ["id", "context_key", "internal", "url", "uri", "resource", "resource_menutitle", "resource_pagetitle", "resourcelinks_count", "textvariants_count"],
+        fields: ["id", "context_key", "menutitle", "pagetitle", "published", "deleted"],
         paging: true,
         remoteSort: true,
+        showActionsColumn: false,
         emptyText: _("linkstrategy.global.no_records"),
         columns: [
         {
@@ -31,75 +31,36 @@ linkstrategy.grid.Links = function (config) {
             }
         },
         {
-            header: _("linkstrategy.links.internal"),
-            dataIndex: "internal",
+            header: _("linkstrategy.global.resource"),
+            dataIndex: "pagetitle",
+            sortable: true,
+            width: 40,
+            renderer: function (value, metaData, record) {
+                var linktitle = record.data.menutitle ? record.data.menutitle : record.data.pagetitle;
+                return '<a href="' + MODx.config.manager_url
+                    + '?a=resource/update&id=' + value + '">' + linktitle + '</a>';
+            }
+        },
+        {
+            header: _("linkstrategy.orphans.published"),
+            dataIndex: "published",
             sortable: true,
             width: 40,
             renderer: this.rendYesNo,
         },
         {
-            header: _("linkstrategy.global.url"),
-            dataIndex: "url",
-            sortable: true,
-            width: 80,
-        },
-        {
-            header: _("linkstrategy.links.uri"),
-            dataIndex: "uri",
-            sortable: true,
-            hidden: true,
-            width: 40,
-        },
-        {
-            header: _("linkstrategy.global.resource"),
-            dataIndex: "resource",
+            header: _("linkstrategy.orphans.deleted"),
+            dataIndex: "deleted",
             sortable: true,
             width: 40,
-            renderer: function (value, metaData, record) {
-                if (value > 0) {
-                    var linktitle = record.data.resource_menutitle ? record.data.resource_menutitle : record.data.resource_pagetitle;
-                    return '<a href="' + MODx.config.manager_url
-                        + '?a=resource/update&id=' + value + '">' + linktitle + '</a>';
-                }
-                return _("linkstrategy.global.not_applicable");
-            }
-        },
-        {
-            header: _("linkstrategy.global.linkedon"),
-            dataIndex: "resourcelinks_count",
-            sortable: true,
-            width: 40,
-            renderer: function (value) {
-                if (value > 1) {
-                    return value + " " + _("linkstrategy.global.resources");
-                } else if (value === 1) {
-                    return value + " " + _("linkstrategy.global.resource");
-                } else {
-                    return _("linkstrategy.global.not_applicable");
-                }
-            }
-        },
-        {
-            header: _("linkstrategy.links.variants"),
-            dataIndex: "textvariants_count",
-            sortable: true,
-            width: 40,
-            renderer: function (value) {
-                if (value > 1) {
-                    return value + " " + _("linkstrategy.links.variants");
-                } else if (value === 1) {
-                    return value + " " + _("linkstrategy.links.variant");
-                } else {
-                    return _("linkstrategy.global.not_applicable");
-                }
-            }
+            renderer: this.rendYesNo,
         },
         ],
         tbar: this.getTbar(config),
     });
-    linkstrategy.grid.Links.superclass.constructor.call(this, config);
+    linkstrategy.grid.Orphans.superclass.constructor.call(this, config);
 };
-Ext.extend(linkstrategy.grid.Links, MODx.grid.Grid, {
+Ext.extend(linkstrategy.grid.Orphans, MODx.grid.Grid, {
     getTbar: function (config) {
         return [
         {
@@ -107,6 +68,32 @@ Ext.extend(linkstrategy.grid.Links, MODx.grid.Grid, {
             handler: this.exportFilters,
         },
         "->",
+        {
+            xtype: "checkbox",
+            boxLabel: _("linkstrategy.orphans.hide_unpublished"),
+            filterName: "published",
+            listeners: {
+                change: function (comp, checked) {
+                    var s = this.getStore();
+                    s.baseParams[comp.filterName] = (checked ? 1 : null);
+                    this.getBottomToolbar().changePage(1);
+                },
+                scope: this,
+            },
+        },
+        {
+            xtype: "checkbox",
+            boxLabel: _("linkstrategy.orphans.hide_deleted"),
+            filterName: "deleted",
+            listeners: {
+                change: function (comp, checked) {
+                    var s = this.getStore();
+                    s.baseParams[comp.filterName] = (checked ? 0 : null);
+                    this.getBottomToolbar().changePage(1);
+                },
+                scope: this,
+            },
+        },
         {
             xtype: "textfield",
             blankText: _("linkstrategy.global.search"),
@@ -137,19 +124,7 @@ Ext.extend(linkstrategy.grid.Links, MODx.grid.Grid, {
 
     getMenu: function () {
         var m = [];
-        m.push({
-            text: _("linkstrategy.global.explore"),
-            handler: this.exploreLink,
-        });
         return m;
-    },
-    exploreLink: function (btn, e) {
-        var record = this.menu.record;
-        var win = MODx.load({
-            xtype: "linkstrategy-window-links-explore",
-            record: record,
-        });
-        win.show(e.target);
     },
     exportFilters: function (comp, search) {
         var s = this.getStore();
@@ -175,9 +150,8 @@ Ext.extend(linkstrategy.grid.Links, MODx.grid.Grid, {
         var s = this.getStore();
         s.baseParams = {
             action: s.baseParams.action,
-            resource: this.config.resource || null,
         };
         this.getBottomToolbar().changePage(1);
     },
 });
-Ext.reg("linkstrategy-grid-links", linkstrategy.grid.Links);
+Ext.reg("linkstrategy-grid-orphans", linkstrategy.grid.Orphans);

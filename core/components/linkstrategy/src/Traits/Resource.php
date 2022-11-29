@@ -11,7 +11,12 @@ use voku\helper\HtmlDomParser;
 
 trait Resource
 {
-    protected modX $modx;
+    /**
+     * A reference to the modX object.
+     * @var modX $modx
+     */
+    public $modx = null;
+
     protected modResource $resource;
 
     public function processLinks()
@@ -109,10 +114,13 @@ trait Resource
         }
         $ls->set('url', str_replace($httpHost, '{http_host}', $href));
         $ls->save();
-        $links = $this->modx->newObject(ResourceLinks::class);
-        $links->set('resource', $this->resource->id);
-        $links->set('link', $ls->id);
-        $links->save();
+        $links = $this->modx->getObject(ResourceLinks::class, ['resource' => $this->resource->id, 'link' => $ls->id]);
+        if (empty($links)) {
+            $links = $this->modx->newObject(ResourceLinks::class);
+            $links->set('resource', $this->resource->id);
+            $links->set('link', $ls->id);
+            $links->save();
+        }
         $linksText = $this->modx->getObject(ResourceLinksText::class, [
             'resource' => $this->resource->id,
             'link' => $ls->id,
@@ -128,5 +136,12 @@ trait Resource
             }
         }
         return $linksText->id;
+    }
+
+    public function clearResourceLinks(): void
+    {
+        $this->modx->removeCollection(ResourceLinks::class, [
+            'resource' => $this->resource->id
+        ]);
     }
 }

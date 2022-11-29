@@ -3,7 +3,7 @@ linkstrategy.window.ResourceLinksTextExplore = function (config) {
     Ext.applyIf(config, {
         title: _("linkstrategy.resourcelinkstext.explore", { text: config.record.text }),
         closeAction: "close",
-        width: 600,
+        width: 800,
         autoHeight: true,
         fields: [
         {

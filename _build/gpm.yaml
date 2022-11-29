@@ -1,21 +1,36 @@
 name: LinkStrategy
-version: 0.0.1
+version: 1.0.0
 lowCaseName: linkstrategy
 namespace: LinkStrategy
-description: 'Manage Your Site''s Link Strategy'
+description: "Manage Your Site's Link Strategy"
 author: matdave
 menus:
     -
         text: linkstrategy.menu
+        description: linkstrategy.menu_desc
         action: manage
 plugins:
     -
         name: LinkStrategy
         events:
+            - OnDocFormPrerender
             - OnDocFormSave
             - OnEmptyTrash
+systemSettings:
+    - key: allow_regenerate_button
+      area: linkstrategy
+      value: 1
+      type: combo-boolean
+    - key: allow_regenerate_onsave
+      area: linkstrategy
+      value: 1
+      type: combo-boolean
 database:
     tables:
         - LinkStrategy\Model\Links
         - LinkStrategy\Model\ResourceLinks
         - LinkStrategy\Model\ResourceLinksText
+build:
+    license: LICENSE.md
+    changelog: CHANGELOG.md
+    readme: README.md

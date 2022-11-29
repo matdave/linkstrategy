@@ -9,6 +9,7 @@ abstract class LinkStrategyBaseManagerController extends modExtraManagerControll
 
         $this->addCss($this->linkstrategy->getOption('cssUrl') . 'mgr.css');
         $this->addJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/linkstrategy.js');
+        $this->linkstrategy->config['allowRegenerate'] = (bool) $this->linkstrategy->getOption('allow_regenerate_button');
 
         $this->addHtml('
             <script type="text/javascript">

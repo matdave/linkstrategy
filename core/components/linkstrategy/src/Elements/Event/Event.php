@@ -7,7 +7,11 @@ use MODX\Revolution\modX;
 
 abstract class Event
 {
-    protected modX $modx;
+    /**
+     * A reference to the modX object.
+     * @var modX $modx
+     */
+    public $modx = null;
 
     protected LinkStrategy $ls;
 

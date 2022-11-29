@@ -84,12 +84,13 @@ trait GetList
         if (isset($this->select) && is_array($this->select)) {
             $c->select($this->select);
         }
-
-        $c->where($where);
-        $c->prepare();
-        $this->modx->log(1, $c->toSql());
+        if (!empty($where)) {
+            $c->where($where);
+        }
 
         $c = $this->prepareCustomProcessing($c);
+        //$c->prepare();
+        //$this->modx->log(1, $c->toSql());
 
         return parent::prepareQueryBeforeCount($c);
     }
