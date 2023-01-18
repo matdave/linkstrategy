@@ -20,6 +20,25 @@ class OnDocFormPrerender extends Event
         $this->modx->regClientStartupScript($this->ls->config['jsUrl'] . 'mgr/widgets/links/explore.window.js');
         $this->modx->regClientStartupScript($this->ls->config['jsUrl'] . 'mgr/widgets/links.grid.js');
 
+        $corePath = $this->modx->getOption('linkstrategy.core_path', null, $this->modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/linkstrategy/');
+        $linkstrategy = $this->modx->getService(
+            'linkstrategy',
+            'LinkStrategy',
+            $corePath . 'model/linkstrategy/',
+            array(
+                'core_path' => $corePath
+            )
+        );
+        $linkstrategy->config['modx3'] = ($this->modx->version['version'] > 3);
+
+        $this->modx->regClientStartupHTMLBlock('
+            <script type="text/javascript">
+                Ext.onReady(function() {
+                    linkstrategy.config = '.$this->modx->toJSON($linkstrategy->config).';
+                });
+            </script>
+        ');
+
         $this->modx->regClientStartupHTMLBlock('<script type="text/javascript">
             Ext.onReady(function() {
                 var tab = Ext.getCmp("modx-resource-tabs");
