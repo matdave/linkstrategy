@@ -1,7 +1,5 @@
 <?php
 
-use LinkStrategy\Processors\Utils\Generate;
-
 $tStart= microtime(true);
 // Core Path
 $coreConfig = dirname(__FILE__, 5) . '/config.core.php';
@@ -28,7 +26,20 @@ if (!is_object($modx) || !($modx instanceof modX)) {
 $modx->startTime= $tStart;
 
 $modx->initialize('mgr');
-
-$generate = new Generate($modx);
-$count = $generate->generate();
-echo $count . "\r\n";
+$modx->getVersionData();
+if ($modx->version['version']  > 3) {
+    $generate = new \LinkStrategy\Processors\Utils\Generate($modx);
+    $count = $generate->generate();
+    echo $count . "\r\n";
+    return;
+}
+$corePath = $modx->getOption('linkstrategy.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/linkstrategy/');
+$ls = $modx->getService(
+    'linkstrategy',
+    'LinkStrategy',
+    $corePath . 'model/linkstrategy/',
+    array(
+        'core_path' => $corePath
+    )
+);
+return $modx->runProcessor('mgr/utils/generate', array(), array('processors_path' => $ls->config['processorsPath']));

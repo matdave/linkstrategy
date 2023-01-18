@@ -1,0 +1,56 @@
+{
+  "name": "LinkStrategy",
+  "version": "1.0.0",
+  "lowCaseName": "linkstrategy",
+  "namespace": "LinkStrategy",
+  "description": "Manage Your Site's Link Strategy",
+  "author": "matdave",
+  "package" : {
+    "menus": [
+      {
+        "text": "linkstrategy.menu",
+        "description": "linkstrategy.menu_desc",
+        "action": "manage"
+      }
+    ],
+    "elements" : {
+      "plugins": [
+        {
+          "name": "LinkStrategy",
+          "file": "LinkStrategy.php",
+          "events": [
+            "OnDocFormPrerender",
+            "OnDocFormSave",
+            "OnEmptyTrash"
+          ]
+        }
+      ]
+    },
+    "systemSettings": [
+      {
+        "key": "allow_regenerate_button",
+        "area": "linkstrategy",
+        "value": 1,
+        "type": "combo-boolean"
+      },
+      {
+        "key": "allow_regenerate_onsave",
+        "area": "linkstrategy",
+        "value": 1,
+        "type": "combo-boolean"
+      }
+    ]
+  },
+  "database": {
+    "tables": [
+      "Links",
+      "ResourceLinks",
+      "ResourceLinksText"
+    ]
+  },
+  "build": {
+    "license": "LICENSE.md",
+    "changelog": "CHANGELOG.md",
+    "readme": "README.md"
+  }
+}

@@ -1,15 +1,9 @@
 <?php
-
-namespace LinkStrategy\Processors\ResourceLinksText;
-
-use LinkStrategy\Model\ResourceLinksText;
-use MODX\Revolution\Processors\Model\GetListProcessor;
-use xPDO\Om\xPDOQuery;
-
-class GetList extends GetListProcessor
+require_once dirname(__FILE__, 4) . '/model/vendor/autoload.php';
+class ResourceLinksTextGetListProcessor extends modObjectGetListProcessor
 {
     use \LinkStrategy\Traits\GetList;
-    public $classKey = ResourceLinksText::class;
+    public $classKey = 'ResourceLinksText';
     public $alias = 'ResourceLinksText';
     public $languageTopics = ['linkstrategy:default'];
     public $defaultSortField = 'text';
@@ -20,7 +14,7 @@ class GetList extends GetListProcessor
         'link' => 'link',
     ];
 
-    public function prepareCustomProcessing(xPDOQuery $c): xPDOQuery
+    public function prepareCustomProcessing(\xPDOQuery $c): \xPDOQuery
     {
         $c->select(['link_count' =>'COUNT(DISTINCT(ResourceLinksText.link))']);
         $c->select(['resource_count' =>'COUNT(ResourceLinksText.resource)']);
@@ -28,3 +22,5 @@ class GetList extends GetListProcessor
         return $c;
     }
 }
+
+return 'ResourceLinksTextGetListProcessor';

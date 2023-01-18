@@ -1,26 +1,20 @@
 <?php
-
-namespace LinkStrategy\Processors\ResourceLinksText;
-
-use LinkStrategy\Model\Links;
-use LinkStrategy\Model\ResourceLinksText;
-use MODX\Revolution\modResource;
-use MODX\Revolution\Processors\Model\GetListProcessor;
-use xPDO\Om\xPDOQuery;
-
-class Explore extends GetListProcessor
+require_once dirname(__FILE__, 4) . '/model/vendor/autoload.php';
+class ResourceLinksTextExploreProcessor extends modObjectGetListProcessor
 {
     use \LinkStrategy\Traits\GetList;
-    public $classKey = ResourceLinksText::class;
+    public $classKey = 'ResourceLinksText';
     public $alias = 'ResourceLinksText';
     public $languageTopics = ['linkstrategy:default'];
     public $defaultSortField = 'Link.uri';
     public $defaultSortDirection = 'ASC';
     public $objectType = 'linkstrategy.linksexplorer';
-    public $leftJoin = [Links::class => 'Link', modResource::class => 'Resource'];
+    public $leftJoin = ['Links' => 'Link', 'modResource' => 'Resource'];
     public $dynamicFilter = [
         'query'=>['Link.url:LIKE', 'OR:Link.uri:LIKE'],
         'text' => 'ResourceLinksText.text',
         'link' => 'ResourceLinksText.link',
     ];
 }
+
+return 'ResourceLinksTextExploreProcessor';

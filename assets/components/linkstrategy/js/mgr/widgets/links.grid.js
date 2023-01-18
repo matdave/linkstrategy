@@ -2,9 +2,9 @@ linkstrategy.grid.Links = function (config) {
     config = config || {};
 
     Ext.applyIf(config, {
-        url: MODx.config.connector_url,
+        url: linkstrategy.config.modx3 ? MODx.config.connector_url : linkstrategy.config.connectorUrl,
         baseParams: {
-            action: "LinkStrategy\\Processors\\Links\\GetList",
+            action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Links\\GetList" : "mgr/links/getlist",
             sort: "resourcelinks_count",
             resource: config.resource || null,
         },

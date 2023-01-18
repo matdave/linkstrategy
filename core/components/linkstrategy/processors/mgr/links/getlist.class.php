@@ -1,30 +1,22 @@
 <?php
-
-namespace LinkStrategy\Processors\Links;
-
-use LinkStrategy\Model\Links;
-use LinkStrategy\Model\ResourceLinksText;
-use MODX\Revolution\modResource;
-use MODX\Revolution\Processors\Model\GetListProcessor;
-use xPDO\Om\xPDOQuery;
-
-class GetList extends GetListProcessor
+require_once dirname(__FILE__, 4) . '/model/vendor/autoload.php';
+class LinksGetListProcessor extends modObjectGetListProcessor
 {
     use \LinkStrategy\Traits\GetList;
-    public $classKey = Links::class;
+    public $classKey = 'Links';
     public $alias = 'Links';
     public $languageTopics = ['linkstrategy:default'];
     public $defaultSortField = 'resourcelinks_count';
     public $defaultSortDirection = 'ASC';
     public $objectType = 'linkstrategy.links';
-    public $leftJoin = [modResource::class => 'Resource', ResourceLinksText::class => 'ResourceLinksText'];
+    public $leftJoin = ['modResource' => 'Resource', 'ResourceLinksText' => 'ResourceLinksText'];
     public $dynamicFilter = [
         'query'=>['url:LIKE','OR:uri:LIKE'],
         'resource' => 'resource',
         'internal' => 'internal',
     ];
 
-    public function prepareCustomProcessing(xPDOQuery $c): xPDOQuery
+    public function prepareCustomProcessing(\xPDOQuery $c): \xPDOQuery
     {
         $c->select(['textvariants_count' =>'COUNT(DISTINCT(ResourceLinksText.text))']);
         $c->select(['resourcelinks_count' =>'COUNT(DISTINCT(ResourceLinksText.resource))']);
@@ -32,3 +24,5 @@ class GetList extends GetListProcessor
         return $c;
     }
 }
+
+return 'LinksGetListProcessor';

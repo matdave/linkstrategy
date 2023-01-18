@@ -1,31 +1,26 @@
 <?php
-
-namespace LinkStrategy\Processors\Orphans;
-
-use LinkStrategy\Model\Links;
-use MODX\Revolution\modResource;
-use MODX\Revolution\Processors\Model\GetListProcessor;
-use xPDO\Om\xPDOQuery;
-
-class GetList extends GetListProcessor
+require_once dirname(__FILE__, 4) . '/model/vendor/autoload.php';
+class OrphansGetListProcessor extends modObjectGetListProcessor
 {
     use \LinkStrategy\Traits\GetList;
-    public $classKey = modResource::class;
+    public $classKey = 'modResource';
     public $alias = 'modResource';
     public $languageTopics = ['linkstrategy:default'];
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'ASC';
     public $objectType = 'modx.resource';
-    public $leftJoin = [Links::class => ['compare' => '`modResource`.`id` = `Links`.`resource`', 'alias' => 'Links']];
+    public $leftJoin = ['Links' => ['compare' => '`modResource`.`id` = `Links`.`resource`', 'alias' => 'Links']];
     public $dynamicFilter = [
         'query'=>['pagetitle:LIKE','OR:longtitle:LIKE','OR:content:LIKE'],
         'deleted'=>['deleted'],
         'published'=>['published'],
     ];
 
-    public function prepareCustomProcessing(xPDOQuery $c): xPDOQuery
+    public function prepareCustomProcessing(\xPDOQuery $c): \xPDOQuery
     {
         $c->where(['Links.id:IS' => null]);
         return $c;
     }
 }
+
+return 'OrphansGetListProcessor';

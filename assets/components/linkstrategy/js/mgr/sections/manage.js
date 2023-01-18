@@ -20,7 +20,7 @@ Ext.extend(linkstrategy.page.Manage, MODx.Component, {
                 text: "<i class=\"icon icon-refresh\"></i> " + _("linkstrategy.generate"),
                 cls: "secondary-button",
                 method: "remote",
-                process: "LinkStrategy\\Processors\\Utils\\Generate",
+                process: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Generate" : "mgr/utils/generate",
             });
         }
         return buttons;

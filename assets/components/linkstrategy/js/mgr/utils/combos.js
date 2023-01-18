@@ -2,7 +2,7 @@ linkstrategy.combo.Text = function (config) {
     config = config || {};
 
     var baseParams = Ext.applyIf(config.baseParams || {}, {
-        action: "LinkStrategy\\Processors\\Utils\\Text",
+        action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Text" : "mgr/utils/text",
         link: config.link || 0,
     });
 
@@ -15,7 +15,7 @@ linkstrategy.combo.Text = function (config) {
         fields: ["text"],
         emptyText: _("linkstrategy.links.variants"),
         pageSize: 20,
-        url: MODx.config.connector_url,
+        url: linkstrategy.config.modx3 ? MODx.config.connector_url : linkstrategy.config.connectorUrl,
         baseParams: baseParams,
     });
     linkstrategy.combo.Text.superclass.constructor.call(this, config);
@@ -27,7 +27,7 @@ linkstrategy.combo.Link = function (config) {
     config = config || {};
 
     var baseParams = Ext.applyIf(config.baseParams || {}, {
-        action: "LinkStrategy\\Processors\\Utils\\Links",
+        action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Links" : "mgr/utils/links",
         text: config.text || "",
     });
 
@@ -40,7 +40,7 @@ linkstrategy.combo.Link = function (config) {
         fields: ["link_id","link_url"],
         emptyText: _("linkstrategy.resourcelinkstext.variants"),
         pageSize: 20,
-        url: MODx.config.connector_url,
+        url: linkstrategy.config.modx3 ? MODx.config.connector_url : linkstrategy.config.connectorUrl,
         baseParams: baseParams,
     });
     linkstrategy.combo.Link.superclass.constructor.call(this, config);

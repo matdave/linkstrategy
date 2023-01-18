@@ -2,9 +2,9 @@ linkstrategy.grid.Orphans = function (config) {
     config = config || {};
 
     Ext.applyIf(config, {
-        url: MODx.config.connector_url,
+        url: linkstrategy.config.modx3 ? MODx.config.connector_url : linkstrategy.config.connectorUrl,
         baseParams: {
-            action: "LinkStrategy\\Processors\\Orphans\\GetList",
+            action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Orphans\\GetList" : "mgr/orphans/getlist",
             sort: "id",
         },
         autosave: false,
