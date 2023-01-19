@@ -44,14 +44,12 @@ $xpdo_meta_map['Links']= array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
-      'index' => 'index',
     ),
     'uri' => 
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
-      'index' => 'index',
     ),
     'resource' => 
     array (
