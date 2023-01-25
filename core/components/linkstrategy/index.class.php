@@ -1,6 +1,8 @@
 <?php
+
 require_once dirname(__FILE__) . '/model/linkstrategy/linkstrategy.class.php';
-abstract class LinkStrategyBaseManagerController extends modExtraManagerController {
+abstract class LinkStrategyBaseManagerController extends modExtraManagerController
+{
     /** @var $linkstrategy */
     public $linkstrategy;
 
@@ -22,12 +24,12 @@ abstract class LinkStrategyBaseManagerController extends modExtraManagerControll
         $this->addCss($this->linkstrategy->getOption('cssUrl') . 'mgr.css');
         $this->addJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/linkstrategy.js');
         $this->linkstrategy->config['allowRegenerate'] = (bool) $this->linkstrategy->getOption('allow_regenerate_button');
-        $this->linkstrategy->config['modx3'] = ($this->modx->version['version'] > 3);
+        $this->linkstrategy->config['modx3'] = ($this->modx->version['version'] >= 3);
 
         $this->addHtml('
             <script type="text/javascript">
                 Ext.onReady(function() {
-                    linkstrategy.config = '.$this->modx->toJSON($this->linkstrategy->config).';
+                    linkstrategy.config = ' . $this->modx->toJSON($this->linkstrategy->config) . ';
                 });
             </script>
         ');
@@ -43,5 +45,10 @@ abstract class LinkStrategyBaseManagerController extends modExtraManagerControll
     public function checkPermissions(): bool
     {
         return true;
+    }
+
+    public function addLastJavascript($script)
+    {
+        $this->head['lastjs'][] = $script . '?v=1.1.0';
     }
 }

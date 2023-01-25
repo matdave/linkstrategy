@@ -25,14 +25,6 @@ if (!is_object($modx) || !($modx instanceof modX)) {
 
 $modx->startTime= $tStart;
 
-$modx->initialize('mgr');
-$modx->getVersionData();
-if ($modx->version['version']  > 3) {
-    $generate = new \LinkStrategy\Processors\Utils\Generate($modx);
-    $count = $generate->generate();
-    echo $count . "\r\n";
-    return;
-}
 $corePath = $modx->getOption('linkstrategy.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/linkstrategy/');
 $ls = $modx->getService(
     'linkstrategy',
