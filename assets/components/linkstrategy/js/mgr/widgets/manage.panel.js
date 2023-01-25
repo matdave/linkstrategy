@@ -4,11 +4,11 @@ linkstrategy.panel.Manage = function (config) {
         id: "linkstrategy-panel-manage",
         border: false,
         cls: "container form-with-labels",
-        url: MODx.config.connector_url,
+        url: linkstrategy.config.modx3 ? MODx.config.connector_url : linkstrategy.config.connectorUrl,
         bypassValidCheck: true,
         saveMsg: _("linkstrategy.generate.ing"),
         baseParams: {
-            action: "LinkStrategy\\Processors\\Utils\\Generate",
+            action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Generate" : "mgr/utils/generate",
         },
         useLoadingMask: true,
         items: [

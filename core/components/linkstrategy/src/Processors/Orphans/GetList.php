@@ -2,9 +2,9 @@
 
 namespace LinkStrategy\Processors\Orphans;
 
-use MODX\Revolution\Processors\Model\GetListProcessor;
-use MODX\Revolution\modResource;
 use LinkStrategy\Model\Links;
+use MODX\Revolution\modResource;
+use MODX\Revolution\Processors\Model\GetListProcessor;
 use xPDO\Om\xPDOQuery;
 
 class GetList extends GetListProcessor

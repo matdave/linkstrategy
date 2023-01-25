@@ -2,8 +2,8 @@
 
 namespace LinkStrategy\Processors\ResourceLinksText;
 
-use MODX\Revolution\Processors\Model\GetListProcessor;
 use LinkStrategy\Model\ResourceLinksText;
+use MODX\Revolution\Processors\Model\GetListProcessor;
 use xPDO\Om\xPDOQuery;
 
 class GetList extends GetListProcessor

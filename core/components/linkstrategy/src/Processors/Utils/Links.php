@@ -2,9 +2,9 @@
 
 namespace LinkStrategy\Processors\Utils;
 
-use MODX\Revolution\Processors\Model\GetListProcessor;
-use LinkStrategy\Model\ResourceLinksText;
 use LinkStrategy\Model\Links as LinksClass;
+use LinkStrategy\Model\ResourceLinksText;
+use MODX\Revolution\Processors\Model\GetListProcessor;
 use xPDO\Om\xPDOQuery;
 
 class Links extends GetListProcessor

@@ -1,0 +1,10 @@
+{
+  "autoload": {
+    "psr-4": {
+      "LinkStrategy\\": "linkstrategy/src/"
+    }
+  },
+  "require": {
+    "voku/simple_html_dom": "^4.8"
+  }
+}

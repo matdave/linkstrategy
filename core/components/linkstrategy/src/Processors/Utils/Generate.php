@@ -3,8 +3,8 @@
 namespace LinkStrategy\Processors\Utils;
 
 use LinkStrategy\Traits\Resource;
-use MODX\Revolution\modResource;
 use MODX\Revolution\modContentType;
+use MODX\Revolution\modResource;
 use MODX\Revolution\Processors\ModelProcessor;
 use xPDO\xPDO;
 
