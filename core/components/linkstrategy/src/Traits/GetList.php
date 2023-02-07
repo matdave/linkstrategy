@@ -21,6 +21,7 @@ trait GetList
         if (isset($this->leftJoin) && is_array($this->leftJoin)) {
             foreach ($this->leftJoin as $class => $alias) {
                 if (is_array($alias)) {
+                    $class = $alias['class'] ?? $class;
                     $compare = $alias['compare'];
                     if (!empty($alias['property'])) {
                         $compare .= ' = ' . $this->getProperty($alias['property']);
@@ -63,7 +64,7 @@ trait GetList
         if (isset($this->dynamicFilter) && is_array($this->dynamicFilter)) {
             foreach ($this->dynamicFilter as $key => $value) {
                 $filterValue = $this->getProperty($key);
-                if (!empty($filterValue)) {
+                if (!empty($filterValue) || $filterValue === '0') {
                     // override to allow searching specifically for empty records
                     if ($filterValue === '-') {
                         $filterValue = '';
@@ -89,8 +90,8 @@ trait GetList
         }
 
         $c = $this->prepareCustomProcessing($c);
-        //$c->prepare();
-        //$this->modx->log(1, $c->toSql());
+        $c->prepare();
+        $this->modx->log(1, $c->toSql());
 
         return parent::prepareQueryBeforeCount($c);
     }

@@ -10,6 +10,7 @@ linkstrategy.grid.ResourceLinksText = function (config) {
         ? "LinkStrategy\\Processors\\ResourceLinksText\\GetList"
         : "mgr/resourcelinkstext/getlist",
       sort: "text",
+      context: MODx.config.default_context
     },
     autosave: false,
     preventSaveRefresh: true,
@@ -81,6 +82,14 @@ Ext.extend(linkstrategy.grid.ResourceLinksText, MODx.grid.Grid, {
       },
       "->",
       {
+        xtype: "linkstrategy-combo-context",
+        filterName: "context",
+        listeners: {
+          select: this.filterSearch,
+          scope: this,
+        }
+      },
+      {
         xtype: "textfield",
         blankText: _("linkstrategy.global.search"),
         filterName: "query",
@@ -135,6 +144,9 @@ Ext.extend(linkstrategy.grid.ResourceLinksText, MODx.grid.Grid, {
   },
 
   filterSearch: function (comp, search) {
+    if (this.isObject(search)) {
+      search = search.data[comp.valueField];
+    }
     var s = this.getStore();
     s.baseParams[comp.filterName] = search;
     this.getBottomToolbar().changePage(1);
@@ -149,9 +161,13 @@ Ext.extend(linkstrategy.grid.ResourceLinksText, MODx.grid.Grid, {
     var s = this.getStore();
     s.baseParams = {
       action: s.baseParams.action,
+      context: MODx.config.default_context
     };
     this.getBottomToolbar().changePage(1);
   },
+  isObject: function(object) {
+    return Object.prototype.toString.call(object) === '[object Object]'
+  }
 });
 Ext.reg(
   "linkstrategy-grid-resourcelinkstext",

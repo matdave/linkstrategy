@@ -9,7 +9,7 @@ class UtilsLinksProcessor extends modObjectGetListProcessor
     public $defaultSortField = 'Link.uri';
     public $defaultSortDirection = 'ASC';
     public $objectType = 'linkstrategy.linksexplorer';
-    public $leftJoin = ['LinksClass' => 'Link'];
+    public $leftJoin = ['Links' => 'Link'];
     public $dynamicFilter = [
         'query'=>['Link.url:LIKE', 'OR:Link.uri:LIKE'],
         'text' => 'ResourceLinksText.text',

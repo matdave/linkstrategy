@@ -46,3 +46,5 @@ $_lang['linkstrategy.generate.ing'] = 'Regenerating Links';
 $_lang['linkstrategy.generate'] = 'Regenerate Links';
 
 $_lang['linkstrategy.resource.links_desc'] = 'View links to this resource';
+
+$_lang['linkstrategy.context_key'] = 'Select Context';

@@ -14,6 +14,7 @@ class OrphansGetListProcessor extends modObjectGetListProcessor
         'query'=>['pagetitle:LIKE','OR:longtitle:LIKE','OR:content:LIKE'],
         'deleted'=>['deleted'],
         'published'=>['published'],
+        'context'=>['context_key'],
     ];
 
     public function prepareCustomProcessing(\xPDOQuery $c): \xPDOQuery

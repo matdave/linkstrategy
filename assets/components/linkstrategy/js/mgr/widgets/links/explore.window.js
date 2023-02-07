@@ -4,7 +4,8 @@ linkstrategy.window.LinksExplore = function (config) {
         title: _("linkstrategy.links.explore", { url: config.record.url }),
         closeAction: "close",
         width: 800,
-        autoHeight: true,
+        height: 600,
+        autoHeight: false,
         fields: [
         {
             html: _("linkstrategy.links.explore_desc"),

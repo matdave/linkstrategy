@@ -9,9 +9,11 @@ class ResourceLinksTextGetListProcessor extends modObjectGetListProcessor
     public $defaultSortField = 'text';
     public $defaultSortDirection = 'DESC';
     public $objectType = 'linkstrategy.resourcelinkstext';
+    public $leftJoin = ['modResource' => 'Resource'];
     public $dynamicFilter = [
         'query'=>['text:LIKE'],
         'link' => 'link',
+        'context' => 'Resource.context_key',
     ];
 
     public function prepareCustomProcessing(\xPDOQuery $c): \xPDOQuery
