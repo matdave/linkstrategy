@@ -4,7 +4,8 @@ linkstrategy.window.ResourceLinksTextExplore = function (config) {
         title: _("linkstrategy.resourcelinkstext.explore", { text: config.record.text }),
         closeAction: "close",
         width: 800,
-        autoHeight: true,
+        height: 600,
+        autoHeight: false,
         fields: [
         {
             html: _("linkstrategy.resourcelinkstext.explore_desc"),

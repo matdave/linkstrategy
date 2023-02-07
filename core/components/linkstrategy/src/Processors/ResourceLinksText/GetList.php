@@ -3,6 +3,7 @@
 namespace LinkStrategy\Processors\ResourceLinksText;
 
 use LinkStrategy\Model\ResourceLinksText;
+use MODX\Revolution\modResource;
 use MODX\Revolution\Processors\Model\GetListProcessor;
 use xPDO\Om\xPDOQuery;
 
@@ -15,9 +16,11 @@ class GetList extends GetListProcessor
     public $defaultSortField = 'text';
     public $defaultSortDirection = 'DESC';
     public $objectType = 'linkstrategy.resourcelinkstext';
+    public $leftJoin = [modResource::class => 'Resource'];
     public $dynamicFilter = [
         'query'=>['text:LIKE'],
         'link' => 'link',
+        'context' => 'Resource.context_key',
     ];
 
     public function prepareCustomProcessing(xPDOQuery $c): xPDOQuery

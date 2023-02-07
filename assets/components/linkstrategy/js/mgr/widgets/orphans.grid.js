@@ -10,6 +10,8 @@ linkstrategy.grid.Orphans = function (config) {
         ? "LinkStrategy\\Processors\\Orphans\\GetList"
         : "mgr/orphans/getlist",
       sort: "id",
+      deleted: 0,
+      context: MODx.config.default_context
     },
     autosave: false,
     preventSaveRefresh: true,
@@ -105,6 +107,7 @@ Ext.extend(linkstrategy.grid.Orphans, MODx.grid.Grid, {
         xtype: "checkbox",
         boxLabel: _("linkstrategy.orphans.hide_deleted"),
         filterName: "deleted",
+        checked: true,
         listeners: {
           change: function (comp, checked) {
             var s = this.getStore();
@@ -113,6 +116,14 @@ Ext.extend(linkstrategy.grid.Orphans, MODx.grid.Grid, {
           },
           scope: this,
         },
+      },
+      {
+        xtype: "linkstrategy-combo-context",
+        filterName: "context",
+        listeners: {
+          select: this.filterSearch,
+          scope: this,
+        }
       },
       {
         xtype: "textfield",
@@ -156,6 +167,9 @@ Ext.extend(linkstrategy.grid.Orphans, MODx.grid.Grid, {
   },
 
   filterSearch: function (comp, search) {
+    if (this.isObject(search)) {
+      search = search.data[comp.valueField];
+    }
     var s = this.getStore();
     s.baseParams[comp.filterName] = search;
     this.getBottomToolbar().changePage(1);
@@ -170,8 +184,13 @@ Ext.extend(linkstrategy.grid.Orphans, MODx.grid.Grid, {
     var s = this.getStore();
     s.baseParams = {
       action: s.baseParams.action,
+      deleted: 0,
+      context: MODx.config.default_context
     };
     this.getBottomToolbar().changePage(1);
   },
+  isObject: function(object) {
+    return Object.prototype.toString.call(object) === '[object Object]'
+  }
 });
 Ext.reg("linkstrategy-grid-orphans", linkstrategy.grid.Orphans);

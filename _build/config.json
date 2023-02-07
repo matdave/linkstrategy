@@ -1,6 +1,6 @@
 {
   "name": "LinkStrategy",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "lowCaseName": "linkstrategy",
   "namespace": "LinkStrategy",
   "description": "Manage Your Site's Link Strategy",

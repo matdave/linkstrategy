@@ -11,6 +11,7 @@ linkstrategy.grid.Links = function (config) {
         : "mgr/links/getlist",
       sort: "resourcelinks_count",
       resource: config.resource || null,
+      context: (config.resource) ? null : MODx.config.default_context
     },
     autosave: false,
     preventSaveRefresh: true,
@@ -132,6 +133,15 @@ Ext.extend(linkstrategy.grid.Links, MODx.grid.Grid, {
       },
       "->",
       {
+        xtype: "linkstrategy-combo-context",
+        filterName: "context",
+        hidden: config.resource ? true : false,
+        listeners: {
+            select: this.filterSearch,
+            scope: this,
+        }
+      },
+      {
         xtype: "textfield",
         blankText: _("linkstrategy.global.search"),
         filterName: "query",
@@ -185,6 +195,9 @@ Ext.extend(linkstrategy.grid.Links, MODx.grid.Grid, {
   },
 
   filterSearch: function (comp, search) {
+    if (this.isObject(search)) {
+      search = search.data[comp.valueField];
+    }
     var s = this.getStore();
     s.baseParams[comp.filterName] = search;
     this.getBottomToolbar().changePage(1);
@@ -200,8 +213,12 @@ Ext.extend(linkstrategy.grid.Links, MODx.grid.Grid, {
     s.baseParams = {
       action: s.baseParams.action,
       resource: this.config.resource || null,
+      context: (this.config.resource) ? null : MODx.config.default_context
     };
     this.getBottomToolbar().changePage(1);
   },
+  isObject: function(object) {
+    return Object.prototype.toString.call(object) === '[object Object]'
+  }
 });
 Ext.reg("linkstrategy-grid-links", linkstrategy.grid.Links);
