@@ -2,7 +2,7 @@
 require_once dirname(__FILE__, 4) . '/model/vendor/autoload.php';
 class ResourceLinksTextExploreProcessor extends modObjectGetListProcessor
 {
-    use \LinkStrategy\Traits\GetList;
+    use \LinkStrategy\v2\Traits\GetList;
     public $classKey = 'ResourceLinksText';
     public $alias = 'ResourceLinksText';
     public $languageTopics = ['linkstrategy:default'];

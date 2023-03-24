@@ -1,8 +1,11 @@
 <?php
+namespace LinkStrategy\v3;
+
+use MODX\Revolution\modX;
 
 class LinkStrategy
 {
-    /** @var \modX $modx */
+    /** @var \MODX\Revolution\modX $modx */
     public $modx;
 
     public $namespace = 'linkstrategy';
@@ -20,21 +23,18 @@ class LinkStrategy
         $this->config = array_merge(
             [
                 'corePath'  => $corePath,
-                'srcPath'   => $corePath . 'model/linkstrategy/src/',
-                'modelPath' => $corePath . 'model/',
+                'srcPath'   => $corePath . 'src/',
+                'modelPath' => $corePath . 'src/Model/',
                 'assetsUrl' => $assetsUrl,
                 'cssUrl'    => $assetsUrl . 'css/',
                 'jsUrl'     => $assetsUrl . 'js/',
 
                 'templatesPath' => $corePath . 'templates/',
-                'processorsPath' => $corePath . 'processors/',
-                'connectorUrl' => $assetsUrl . 'connector.php',
+                'processorsPath' => $corePath . 'src/Processors',
             ],
             $config
         );
-        $this->modx->addPackage('linkstrategy', $this->getOption('modelPath'));
         $this->modx->lexicon->load('linkstrategy:default');
-        $this->autoload();
     }
 
 
@@ -61,11 +61,6 @@ class LinkStrategy
             }
         }
         return $option;
-    }
-
-    protected function autoload()
-    {
-        require_once $this->getOption('corePath') . 'vendor/autoload.php';
     }
 
 }

@@ -19,4 +19,4 @@ if (!is_object($modx) || !($modx instanceof \MODX\Revolution\modX)) {
 
 $modx->startTime = $tStart;
 $modx->initialize('web');
-return $modx->runProcessor(\LinkStrategy\Processors\Utils\Generate::class, []);
+return $modx->runProcessor(\LinkStrategy\v3\Processors\Utils\Generate::class, []);

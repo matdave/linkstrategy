@@ -4,8 +4,9 @@
  * @var array $scriptProperties
  *
  */
-
+$version = 'v2';
 if ($modx->version['version'] > 3) {
+    $version = 'v3';
     $ls = $modx->services->get('linkstrategy');
 } else {
     $corePath = $modx->getOption('linkstrategy.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/linkstrategy/');
@@ -19,7 +20,7 @@ if ($modx->version['version'] > 3) {
     );
 }
 
-$className = "\\LinkStrategy\\Elements\\Event\\{$modx->event->name}";
+$className = "\\LinkStrategy\\$version\\Elements\\Event\\{$modx->event->name}";
 
 if (class_exists($className)) {
     /** @var $event */

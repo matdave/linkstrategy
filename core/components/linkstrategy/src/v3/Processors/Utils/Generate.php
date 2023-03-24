@@ -1,8 +1,16 @@
 <?php
-require_once dirname(__FILE__, 4) . '/model/vendor/autoload.php';
-class UtilsGenerateProcessor extends modProcessor
+
+namespace LinkStrategy\v3\Processors\Utils;
+
+use LinkStrategy\v3\Traits\Resource;
+use MODX\Revolution\modContentType;
+use MODX\Revolution\modResource;
+use MODX\Revolution\Processors\ModelProcessor;
+use xPDO\xPDO;
+
+class Generate extends ModelProcessor
 {
-    use \LinkStrategy\v2\Traits\Resource;
+    use Resource;
 
     public $languageTopics = ['linkstrategy:default'];
     public $objectType = 'linkstrategy.generate';
@@ -15,17 +23,18 @@ class UtilsGenerateProcessor extends modProcessor
 
     public function generate()
     {
-        $c = $this->modx->newQuery('modResource');
-        $c->where(['contentType' => 'text/html']);
-        $collection = $this->modx->getCollection('modResource', $c);
-        $count = $this->modx->getCount('modResource', $c);
+        $c = $this->modx->newQuery(modResource::class);
+        $c->leftJoin(modContentType::class, 'ContentType');
+        $c->where(['ContentType.mime_type' => 'text/html']);
+        $collection = $this->modx->getCollection(modResource::class, $c);
+        $count = $this->modx->getCount(modResource::class, $c);
         foreach ($collection as $resource) {
             $this->resource = $resource;
             $this->object = $resource;
             $this->clearResourceLinks();
             $this->processLinks();
             $this->modx->log(
-                \modX::LOG_LEVEL_INFO,
+                xPDO::LOG_LEVEL_INFO,
                 $this->modx->lexicon('linkstrategy.generate.status', [
                     'id' => $this->resource->id,
                     'pagetitle' => $this->resource->pagetitle,
@@ -35,4 +44,3 @@ class UtilsGenerateProcessor extends modProcessor
         return $count;
     }
 }
-return 'UtilsGenerateProcessor';

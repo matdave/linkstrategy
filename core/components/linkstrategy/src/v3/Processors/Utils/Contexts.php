@@ -1,10 +1,14 @@
 <?php
-require_once dirname(__FILE__, 4) . '/model/vendor/autoload.php';
 
-class UtilsContextsProcessor extends modObjectGetListProcessor
+namespace LinkStrategy\v3\Processors\Utils;
+
+use MODX\Revolution\Processors\Model\GetListProcessor;
+use xPDO\Om\xPDOQuery;
+
+class Contexts extends GetListProcessor
 {
-    use \LinkStrategy\v2\Traits\GetList;
-    public $classKey = 'modContext';
+    use \LinkStrategy\v3\Traits\GetList;
+    public $classKey = \MODX\Revolution\modContext::class;
     public $alias = 'modContext';
     public $languageTopics = ['linkstrategy:default'];
     public $defaultSortField = 'modContext.key';
@@ -14,11 +18,9 @@ class UtilsContextsProcessor extends modObjectGetListProcessor
         'query'=>['modContext.key:LIKE', 'OR:modContext.name:LIKE']
     ];
 
-    public function prepareCustomProcessing(\xPDOQuery $c): \xPDOQuery
+    public function prepareCustomProcessing(xPDOQuery $c): xPDOQuery
     {
         $c->where(['modContext.key:NOT IN' => ['mgr']]);
         return $c;
     }
 }
-
-return 'UtilsContextsProcessor';
