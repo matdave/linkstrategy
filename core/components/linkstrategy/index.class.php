@@ -8,9 +8,10 @@ abstract class LinkStrategyBaseManagerController extends modExtraManagerControll
 
     public function initialize(): void
     {
-        if ($this->modx->version['version'] > 3) {
-            $this->linkstrategy = $this->modx->services->get('linkstrategy');
-        } else {
+        if (empty($this->modx->version)) {
+            $this->modx->getVersionData();
+        }
+        if ($this->modx->version['version'] < 3) {
             $corePath = $this->modx->getOption('linkstrategy.core_path', null, $this->modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/linkstrategy/');
             $this->linkstrategy = $this->modx->getService(
                 'linkstrategy',
@@ -20,6 +21,8 @@ abstract class LinkStrategyBaseManagerController extends modExtraManagerControll
                     'core_path' => $corePath
                 )
             );
+        } else {
+            $this->linkstrategy = $this->modx->services->get('linkstrategy');
         }
         $this->addCss($this->linkstrategy->getOption('cssUrl') . 'mgr.css');
         $this->addJavascript($this->linkstrategy->getOption('jsUrl') . 'mgr/linkstrategy.js');

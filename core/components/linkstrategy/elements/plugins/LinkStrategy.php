@@ -5,10 +5,10 @@
  *
  */
 $version = 'v2';
-if ($modx->version['version'] > 3) {
-    $version = 'v3';
-    $ls = $modx->services->get('linkstrategy');
-} else {
+if (empty($modx->version)) {
+    $this->modx->getVersionData();
+}
+if ($modx->version['version'] < 3) {
     $corePath = $modx->getOption('linkstrategy.core_path', null, $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/linkstrategy/');
     $ls = $modx->getService(
         'linkstrategy',
@@ -18,6 +18,9 @@ if ($modx->version['version'] > 3) {
             'core_path' => $corePath
         )
     );
+} else {
+    $version = 'v3';
+    $ls = $modx->services->get('linkstrategy');
 }
 
 $className = "\\LinkStrategy\\$version\\Elements\\Event\\{$modx->event->name}";
