@@ -15,7 +15,7 @@ class GetList extends GetListProcessor
     public $alias = 'Links';
     public $languageTopics = ['linkstrategy:default'];
     public $defaultSortField = 'resourcelinks_count';
-    public $defaultSortDirection = 'ASC';
+    public $defaultSortDirection = 'DESC';
     public $objectType = 'linkstrategy.links';
     public $leftJoin = [
         modResource::class => 'Resource',

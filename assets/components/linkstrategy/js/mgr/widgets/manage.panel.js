@@ -8,7 +8,7 @@ linkstrategy.panel.Manage = function (config) {
         bypassValidCheck: true,
         saveMsg: _("linkstrategy.generate.ing"),
         baseParams: {
-            action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Generate" : "mgr/utils/generate",
+            action: linkstrategy.config.modx3 ? "LinkStrategy\\v3\\Processors\\Utils\\Generate" : "mgr/utils/generate",
         },
         useLoadingMask: true,
         items: [

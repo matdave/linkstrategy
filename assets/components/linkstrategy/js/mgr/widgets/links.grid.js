@@ -7,7 +7,7 @@ linkstrategy.grid.Links = function (config) {
       : linkstrategy.config.connectorUrl,
     baseParams: {
       action: linkstrategy.config.modx3
-        ? "LinkStrategy\\Processors\\Links\\GetList"
+        ? "LinkStrategy\\v3\\Processors\\Links\\GetList"
         : "mgr/links/getlist",
       sort: "resourcelinks_count",
       resource: config.resource || null,

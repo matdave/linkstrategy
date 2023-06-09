@@ -7,7 +7,7 @@ linkstrategy.grid.ResourceLinksText = function (config) {
       : linkstrategy.config.connectorUrl,
     baseParams: {
       action: linkstrategy.config.modx3
-        ? "LinkStrategy\\Processors\\ResourceLinksText\\GetList"
+        ? "LinkStrategy\\v3\\Processors\\ResourceLinksText\\GetList"
         : "mgr/resourcelinkstext/getlist",
       sort: "text",
       context: MODx.config.default_context

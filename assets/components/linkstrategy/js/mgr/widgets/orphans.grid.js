@@ -7,7 +7,7 @@ linkstrategy.grid.Orphans = function (config) {
       : linkstrategy.config.connectorUrl,
     baseParams: {
       action: linkstrategy.config.modx3
-        ? "LinkStrategy\\Processors\\Orphans\\GetList"
+        ? "LinkStrategy\\v3\\Processors\\Orphans\\GetList"
         : "mgr/orphans/getlist",
       sort: "id",
       deleted: 0,

@@ -2,7 +2,7 @@ linkstrategy.combo.Text = function (config) {
     config = config || {};
 
     var baseParams = Ext.applyIf(config.baseParams || {}, {
-        action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Text" : "mgr/utils/text",
+        action: linkstrategy.config.modx3 ? "LinkStrategy\\v3\\Processors\\Utils\\Text" : "mgr/utils/text",
         link: config.link || 0,
     });
 
@@ -27,7 +27,7 @@ linkstrategy.combo.Link = function (config) {
     config = config || {};
 
     var baseParams = Ext.applyIf(config.baseParams || {}, {
-        action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Links" : "mgr/utils/links",
+        action: linkstrategy.config.modx3 ? "LinkStrategy\\v3\\Processors\\Utils\\Links" : "mgr/utils/links",
         text: config.text || "",
     });
 
@@ -52,7 +52,7 @@ linkstrategy.combo.Context = function (config) {
     config = config || {};
 
     var baseParams = Ext.applyIf(config.baseParams || {}, {
-        action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\Utils\\Contexts" : "mgr/utils/contexts",
+        action: linkstrategy.config.modx3 ? "LinkStrategy\\v3\\Processors\\Utils\\Contexts" : "mgr/utils/contexts",
     });
 
     Ext.applyIf(config, {

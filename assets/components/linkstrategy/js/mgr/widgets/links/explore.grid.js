@@ -7,7 +7,7 @@ linkstrategy.grid.LinksExplore = function (config) {
       : linkstrategy.config.connectorUrl,
     baseParams: {
       action: linkstrategy.config.modx3
-        ? "LinkStrategy\\Processors\\Links\\Explore"
+        ? "LinkStrategy\\v3\\Processors\\Links\\Explore"
         : "mgr/links/explore",
       link: config.record.id,
     },

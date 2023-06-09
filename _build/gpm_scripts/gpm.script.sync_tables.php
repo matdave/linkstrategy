@@ -109,9 +109,9 @@ if ($transport->xpdo) {
             $modx =& $transport->xpdo;
 
             $tables = [
-                LinkStrategy\Model\Links::class,
-                LinkStrategy\Model\ResourceLinks::class,
-                LinkStrategy\Model\ResourceLinksText::class,
+                LinkStrategy\v3\Model\Links::class,
+                LinkStrategy\v3\Model\ResourceLinks::class,
+                LinkStrategy\v3\Model\ResourceLinksText::class,
             ];
 
             foreach ($tables as $table) {

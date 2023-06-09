@@ -4,7 +4,7 @@ linkstrategy.grid.ResourceLinksTextExplore = function (config) {
     Ext.applyIf(config, {
         url: linkstrategy.config.modx3 ? MODx.config.connector_url : linkstrategy.config.connectorUrl,
         baseParams: {
-            action: linkstrategy.config.modx3 ? "LinkStrategy\\Processors\\ResourceLinksText\\Explore" : "mgr/resourcelinkstext/explore",
+            action: linkstrategy.config.modx3 ? "LinkStrategy\\v3\\Processors\\ResourceLinksText\\Explore" : "mgr/resourcelinkstext/explore",
             text: config.record.text,
         },
         autosave: false,

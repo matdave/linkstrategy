@@ -20,8 +20,8 @@ if ($options[xPDOTransport::PACKAGE_ACTION] === xPDOTransport::ACTION_UNINSTALL)
 
 $manager = $modx->getManager();
 
-$manager->createObjectContainer(LinkStrategy\Model\Links::class);
-$manager->createObjectContainer(LinkStrategy\Model\ResourceLinks::class);
-$manager->createObjectContainer(LinkStrategy\Model\ResourceLinksText::class);
+$manager->createObjectContainer(LinkStrategy\v3\Model\Links::class);
+$manager->createObjectContainer(LinkStrategy\v3\Model\ResourceLinks::class);
+$manager->createObjectContainer(LinkStrategy\v3\Model\ResourceLinksText::class);
 
 return true;
